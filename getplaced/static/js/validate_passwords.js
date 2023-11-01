@@ -7,7 +7,7 @@ function validate_passwords() {
     } else {
         var val = passwordchecker(password1)
         if (!val) {
-            alert("Password must have atleast 8 characters with digits, letters and special characters");
+            // alert("Password must have atleast 8 characters with digits, letters and special characters");
             return false
         }
         return true

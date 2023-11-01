@@ -161,7 +161,7 @@ function validateEmail (emailAdress)
 $("#login").submit(function (e) {
     e.preventDefault();
     if(validate()==false) {
-        alert("Please enter")
+        // alert("Please enter")
         return false;
     }
     document.getElementById("button1").disabled = true;
