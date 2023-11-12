@@ -159,7 +159,7 @@ function end_chat(){
         type: 'GET',
         url: "../end/"+chat_re_id,
         success: function (response) {
-            alert("Chat has been ended. Now, no new messages can be sent.")
+            // alert("Chat has been ended. Now, no new messages can be sent.")
             location.reload();
         },
         error: function (response) {

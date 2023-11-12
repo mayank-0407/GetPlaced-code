@@ -12,7 +12,7 @@ $("#new_session").submit(function (e) {
         data: serializedData,
         success: function (response) {
             $("#new_session").trigger('reset');
-            alert("New Session has been created.")
+            // alert("New Session has been created.")
             location.reload();
         },
         error: function (response) {

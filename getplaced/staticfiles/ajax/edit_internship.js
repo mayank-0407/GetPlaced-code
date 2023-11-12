@@ -36,7 +36,7 @@ $("#edit_internship").submit(function (e) {
         data: serializedData,
         success: function (response) {
             $("#edit_internship").trigger('reset');
-            alert('Internship Details Updated')
+            // alert('Internship Details Updated')
             location.reload()
         },
         error: function (response) {

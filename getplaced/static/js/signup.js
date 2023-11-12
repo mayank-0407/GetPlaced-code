@@ -1,5 +1,11 @@
 function validate() {
     email = document.getElementById('email').value
+    var n = email.search('@thapar.edu');
+    if (n == -1) {
+        document.getElementById("myerror").innerHTML = "Email entered is not associated with TIET";
+        fader('#myerror')
+        return false;
+    }
     if(email==""){
         document.getElementById("myerror").innerHTML="Email must not be empty."
         fader('#myerror')
@@ -30,12 +36,7 @@ function validate() {
         fader('#myerror')
         return false;
     }
-    var n = email.search('@gmail.com');
-    if (n == -1) {
-        document.getElementById("myerror").innerHTML = "Email entered is not associated";
-        fader('#myerror')
-        return false;
-    }
+    
     if (email.length >= 35)
         return false;
     password1 = document.getElementById('password3').value

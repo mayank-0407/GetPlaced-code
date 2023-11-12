@@ -37,7 +37,7 @@ $("#new_internship").submit(function (e) {
         data: serializedData,
         success: function (response) {
             $("#new_internship").trigger('reset');
-            alert("New internship has been created. Now, first round must be announced in the new round section.")
+            // alert("New internship has been created. Now, first round must be announced in the new round section.")
             document.getElementById("new_internship_button").disabled = false;
         },
         error: function (response) {

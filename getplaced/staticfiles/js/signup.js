@@ -1,8 +1,8 @@
 function validate() {
     email = document.getElementById('email').value
-    var n = email.search('@iiita.ac.in');
+    var n = email.search('@thapar.edu');
     if (n == -1) {
-        document.getElementById("myerror").innerHTML = "Email entered is not associated with IIITA";
+        document.getElementById("myerror").innerHTML = "Email entered is not associated with TIET";
         $('#myerror').fadeIn();
         $('#myerror').delay(4000).fadeOut(4000);
         return false;
