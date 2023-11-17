@@ -223,7 +223,7 @@ def otp_sender_to_student(request, phone_number):
         return False
     otp=str(generate_otp())
     try:
-        SEND_OTP_TO_PHONE(phone_number,'+91',"OTP to verify phone number for the student account in Clean Frame is : " + str(otp) + ".\nDo not share it with anyone. It will expire in 15 minutes.")
+        SEND_OTP_TO_PHONE(phone_number,'+91',"OTP to verify phone number for the student account in GetPlaced is : " + str(otp) + ".\nDo not share it with anyone. It will expire in 15 minutes.")
     except:
         return error(request,"Unable to Send OTP to this phone number, contact Administrator")
     try:
@@ -324,7 +324,7 @@ def otp_sender_to_company(request, phone_number):
         return False
     otp=str(generate_otp())
     try:
-        SEND_OTP_TO_PHONE(phone_number,'+91',"OTP to verify phone number for the student account in Clean Frame is : " + str(otp) + ".\nDo not share it with anyone. It will expire in 15 minutes.")
+        SEND_OTP_TO_PHONE(phone_number,'+91',"OTP to verify phone number for the student account in GetPlaced is : " + str(otp) + ".\nDo not share it with anyone. It will expire in 15 minutes.")
     except:
         return error(request,"Unable to Send OTP to this phone number, contact Administrator")
     try:
@@ -585,7 +585,7 @@ def change_password(request):
             user=request.user
             user.set_password(password)
             user.save()
-            subject = 'Password changed in Clean Frame'
+            subject = 'Password changed in GetPlaced'
             message = f'Password has been successfully changed.'
             Email_thread(subject,message,user.email).start()
             return redirect('dashboard')
@@ -634,7 +634,7 @@ def student_account_signup_action(request,type,item):
                 else:
                     u.delete()
                     code=2
-                    message = f'Your request for creating the account has been blocked and your account has been deleted. This may due to some inapropriate data given in the signup form.<br/>You can register again on the clean frame. Be sure this time, you give correct details, otherwise the email can be blocked permanently.'
+                    message = f'Your request for creating the account has been blocked and your account has been deleted. This may due to some inapropriate data given in the signup form.<br/>You can register again on the GetPlaced. Be sure this time, you give correct details, otherwise the email can be blocked permanently.'
                     Email_thread(subject,message,email).start()
             except:
                 code=0
@@ -683,7 +683,7 @@ def company_account_signup_action(request,type,item):
                 else:
                     u.delete()
                     code=2
-                    message = f'Your request for creating the account has been blocked and your account has been deleted. This may due to some inapropriate data given in the signup form.<br/>You can register again on the clean frame. Be sure this time, you give correct details, otherwise the email can be blocked permanently.'
+                    message = f'Your request for creating the account has been blocked and your account has been deleted. This may due to some inapropriate data given in the signup form.<br/>You can register again on the GetPlaced. Be sure this time, you give correct details, otherwise the email can be blocked permanently.'
                     Email_thread(subject,message,email).start()
             except:
                 code=0
@@ -1875,8 +1875,8 @@ def create_accounts_helper(request,data,permissions):
             user=User.objects.create(username=username, email=email)
             user.set_password(password)
             user.save()
-            subject="New account in Clean Frame"
-            message="Your email has been used to create "+account_type+" account in Clean Frame. Login Credentials are as follows : \nUsername : "+username+"\nPassword : "+password+"\nPassword is auto generated so it is recommended to change ASAP."
+            subject="New account in GetPlaced"
+            message="Your email has been used to create "+account_type+" account in GetPlaced. Login Credentials are as follows : \nUsername : "+username+"\nPassword : "+password+"\nPassword is auto generated so it is recommended to change ASAP."
             Email_thread(subject,message,email).start()
             if account_type=="company":
                 user.last_name=settings.COMPANY_MESSAGE
@@ -2146,7 +2146,7 @@ def create_new_staff_account(request):
             user.save()
             data=StaffPermissions.objects.create(user=user)
             subject = 'Staff Account created'
-            message = f'An staff account has been created for this email in Clean Frame.<br/>Account Details are as follows:<br/>Username: '+str(user)+'<br/>Password: '+str(password)+'<br/>Name: '+str(user.first_name)+'<br/>Now you are a staff, visit the website, login and see what permissions you have been provided with.<br/>The password is a auto generated password so we suggest you to change it.'
+            message = f'An staff account has been created for this email in GetPlaced.<br/>Account Details are as follows:<br/>Username: '+str(user)+'<br/>Password: '+str(password)+'<br/>Name: '+str(user.first_name)+'<br/>Now you are a staff, visit the website, login and see what permissions you have been provided with.<br/>The password is a auto generated password so we suggest you to change it.'
             email=email
             Email_thread(subject,message,email).start()
             data.can_access_student_inactive_accounts=True if request.POST.get('can_access_student_inactive_accounts')=="1" else False
@@ -2541,7 +2541,7 @@ def delete_account(request):
             u=User.objects.get(username=request.user)
             email=u.email
             subject = 'Account Deletion Notice'
-            message = f'Your account has been sucessfully deleted from Clean Frame.<br/>Moreover all the records related are also deleted.<br/>If you create a new account then previous effects or changes would not be shown.'
+            message = f'Your account has been sucessfully deleted from GetPlaced.<br/>Moreover all the records related are also deleted.<br/>If you create a new account then previous effects or changes would not be shown.'
             SENDMAIL(subject,message,email)            
             u.delete()
         except:
@@ -2628,7 +2628,7 @@ def remove_students_helper(request, data, permissions, data_to_pass):
                     field_with_student_not_found.append(i+1)
                 else:
                     subject="Account Deletion Notice"
-                    message="This is to notify that your student account has been deleted by our staff in CleanFrame."
+                    message="This is to notify that your student account has been deleted by our staff in GetPlaced."
                     Email_thread(subject,message,user.email).start()
                     user.delete()
             except:
@@ -2709,7 +2709,7 @@ def remove_companies_helper(request, data, permissions, data_to_pass):
                     field_with_company_not_found.append(i+1)
                 else:
                     subject="Account Deletion Notice"
-                    message="This is to notify that your company account has been deleted by our staff in CleanFrame."
+                    message="This is to notify that your company account has been deleted by our staff in GetPlaced."
                     Email_thread(subject,message,user.email).start()
                     user.delete()
             except:
@@ -2797,8 +2797,8 @@ def upload_cgpa_helper(request, data, permissions, data_to_pass):
                     old_cgpa=profile.cgpa
                     profile.cgpa=cgpa
                     profile.save()
-                    subject="CGPA Updated on CleanFrame"
-                    message="This is to notify that your CGPA has been updated from " + str(old_cgpa) + " to " + str(cgpa) +" by our staff in CleanFrame."
+                    subject="CGPA Updated on GetPlaced"
+                    message="This is to notify that your CGPA has been updated from " + str(old_cgpa) + " to " + str(cgpa) +" by our staff in GetPlaced."
                     Email_thread(subject,message,user.email).start()
             except:
                 field_with_student_not_found.append(i+1)

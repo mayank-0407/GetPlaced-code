@@ -232,7 +232,7 @@ def signup_send_notification(email, p, message):
     try:
         code=p.user.username + generate_code(50)
         url=settings.BASE_URL+'/signup/verify/'+code
-        subject = 'Signup Request detected in Clean Frame'
+        subject = 'Signup Request detected in GetPlaced'
         message+=url + ' , and it expires in 15 minutes.'
         Email_thread(subject,message,email).start()
         p.unique_code=str(code)
@@ -267,7 +267,7 @@ def signup_verification(request, code):
         user=profile.user
         user.is_active=True
         user.save()
-        subject = 'Successful Signup in Clean Frame'
+        subject = 'Successful Signup in GetPlaced'
         message = f'Your account has been submitted for verification to our backend staff.'
         Email_thread(subject,message,profile.user.email).start()
         return render(request, 'home/signup_page.html', context={"code_message": "Account submitted for verification Successfully"})
@@ -401,7 +401,7 @@ def forgot_password(request):
                 return JsonResponse({"error": "This account is in verification phase, you do not have permission to change password."}, status=400)
             if p.account_banned_permanent==True:
                 return JsonResponse({"error": "This account has been permanently banned, you don not have permission to change password."}, status=400)
-            message = f'We recently got a request to forgot your password in CleanFrame, click the URL to change your password '
+            message = f'We recently got a request to forgot your password in GetPlaced, click the URL to change your password '
             if forgot_password_send_notification(email, p, message)==False:
                 return JsonResponse({"error": "Error in sending notification, contact adminstrator."}, status=400)
             return JsonResponse({"success": "Notification send."}, status=200)
@@ -414,7 +414,7 @@ def forgot_password_send_notification(email, p, message):
     try:
         code=p.user.username + generate_code(50)
         url=settings.BASE_URL+'/password/forgot/'+'confirm/'+code
-        subject = 'Forgot Password request notification for reseting password in Clean Frame'
+        subject = 'Forgot Password request notification for reseting password in GetPlaced'
         message+=url+', link will expire in 15 minutes.\nKindly ignore the message if request is not done by you.'
         Email_thread(subject,message,email).start()
         p.unique_code=str(code)
@@ -454,8 +454,8 @@ def forgot_password_verification(request,code):
             user.save()
             profile.code_expired=True
             profile.save()
-            subject = 'Password Changed in Clean Frame'
-            message = f'Your password has been successfully changed in Clean Frame.'
+            subject = 'Password Changed in GetPlaced'
+            message = f'Your password has been successfully changed in GetPlaced.'
             Email_thread(subject,message,profile.user.email).start()
             return JsonResponse({"success": "Password Changed."},status=200)
         else:
@@ -496,8 +496,8 @@ def change_staff_only(request,email,username):
             new_password=generate_password()
             user.set_password(new_password)
             user.save()
-            subject = 'Password Changed in Clean Frame'
-            message = f'Recently password has been changed.<br>New Password is : ' + new_password + '<br>Note: This is auto generated password you are suggested to reset the password from dashboard section of the clean frame with link as https://clean-frame.herokuapp.com/.<br>If you had not given the request then click the following link to reset it again.<br>Link to reset password: https://clean-frame.herokuapp.com/changepassword/iamastaff/' + email + '/' + username +'/'
+            subject = 'Password Changed in GetPlaced'
+            message = f'Recently password has been changed.<br>New Password is : ' + new_password + '<br>Note: This is auto generated password you are suggested to reset the password from dashboard section of the GetPlaced.'
             Email_thread(subject,message,email).start()
         else:
             pass
